@@ -1,0 +1,18 @@
+  BIP: <39, or "?" before being assigned>
+* Layer: <Consensus (soft fork) | Consensus (hard fork) | Peer Services | API/RPC | Applications>
+  Title: <BIP title;1C9NCe9K7owLYbPAHwe2BAXH4u4ZDxYKW
+  >
+  Author: <list of authors' Bitkeep and tosintobi1@icloud.com>
+* Discussions-To: <email address> slush@satoshilabs.com
+* Comments-Summary: <summary tone>Unanimously Discourage for implementation
+  Comments-URI: <links to wiki page for comments> URI: https://github.com/bitcoin/bips/wiki/
+  Status: <Draft | Active | Proposed | Deferred | Approved |
+           Withdrawn | Final | Replaced | Obsolete>
+  Type: <Standards Track | Informational | Process>
+  Created: <date created on, in ISO 8601 (2022-08-29) format>
+  License: <abbreviation for approved license(s)>
+* License-Code: <abbreviation for code under different approved license(s)>
+* Post-History: <dates of postings to bitcoin mailing list, or link to thread in mailing list archive>
+* Requires: <BIP 0039(s)>
+* Replaces: <BIP number>
+* Superseded-By: <BIP number>
