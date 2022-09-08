@@ -284,6 +284,27 @@ The following parameters must be inserted into all supported verification Algori
 
 The Header byte in the signature shall dictate the verification Algorithm that is used.
 
+| y-parity |   x-order   | recovery id |  v |        addr type       |     addr prefix    |
+|:--------:|:-----------:|:-----------:|:--:|:----------------------:|:------------------:|
+|     0    | less than n |      0      | 27 |   uncompressed p2pkh   |       1, m, n      |
+|     1    | less than n |      1      | 28 |   uncompressed p2pkh   |       1, m, n      |
+|     0    | more than n |      2      | 29 |   uncompressed p2pkh   |       1, m, n      |
+|     1    | more than n |      3      | 30 |   uncompressed p2pkh   |       1, m, n      |
+|     0    | less than n |      0      | 31 |    compressed p2pkh    |       1, m, n      |
+|     1    | less than n |      1      | 32 |    compressed p2pkh    |       1, m, n      |
+|     0    | more than n |      2      | 33 |    compressed p2pkh    |       1, m, n      |
+|     1    | more than n |      3      | 34 |    compressed p2pkh    |       1, m, n      |
+|     0    | less than n |      0      | 35 | compressed p2sh-p2wpkh |        3, 2        |
+|     1    | less than n |      1      | 36 | compressed p2sh-p2wpkh |        3, 2        |
+|     0    | more than n |      2      | 37 | compressed p2sh-p2wpkh |        3, 2        |
+|     1    | more than n |      3      | 38 | compressed p2sh-p2wpkh |        3, 2        |
+|     0    | less than n |      0      | 39 |    compressed p2wpkh   | bc1q, tb1q, bcrt1q |
+|     1    | less than n |      1      | 40 |    compressed p2wpkh   | bc1q, tb1q, bcrt1q |
+|     0    | more than n |      2      | 41 |    compressed p2wpkh   | bc1q, tb1q, bcrt1q |
+|     1    | more than n |      3      | 42 |    compressed p2wpkh   | bc1q, tb1q, bcrt1q |
+| does NOT |   support   |   recovery  | 46 |     compressed p2tr    |        bc1p        |
+
+
 Upon verification success, implementations must display a status message similar to: "Genuine signed message from address <Address>".
 
 ==== Preliminary steps for all verification Algorithms ====
@@ -302,7 +323,7 @@ Upon verification success, implementations must display a status message similar
 # Set ''r = DecodedSignature[1:33]''. If ''r &ge; n'' or ''r == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''s = DecodedSignature[33:65]''. If ''s &ge; n'' or ''s == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''z = SHA256(Message)''
-# Set ''recID = Header AND 0x3''
+# Set ''recID = (Header - 27) AND 0x3''
 # If ''recID AND 0x2 == 0'', set ''x = r'', else set ''x = r+n''
 # Set ''x = (x^3 + 7) mod p''
 # Set ''y = x^((p+1)/4) mod p''
@@ -321,7 +342,7 @@ Upon verification success, implementations must display a status message similar
 # Set ''r = DecodedSignature[1:33]''. If ''r &ge; n'' or ''r == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''s = DecodedSignature[33:65]''. If ''s &ge; n'' or ''s == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''z = SHA256(Message)''
-# Set ''recID = Header AND 0x3''
+# Set ''recID = (Header - 27) AND 0x3''
 # If ''recID AND 0x2 == 0'', set ''x = r'', else set ''x = r+n''.
 # Set ''x = (x^3 + 7) mod p''
 # Set ''y = x^((p+1)/4) mod p''
@@ -340,7 +361,7 @@ Upon verification success, implementations must display a status message similar
 # Set ''r = DecodedSignature[1:33]''. If ''r &ge; n'' or ''r == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''s = DecodedSignature[33:65]''. If ''s &ge; n'' or ''s == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''z = SHA256(Message)''
-# Set ''recID = Header AND 0x3''
+# Set ''recID = (Header - 27) AND 0x3''
 # If ''recID AND 0x2 == 0'', set ''x = r'', else set ''x = r+n''.
 # Set ''x = (x^3 + 7) mod p''
 # Set ''y = x^((p+1)/4) mod p''
@@ -361,7 +382,7 @@ Upon verification success, implementations must display a status message similar
 # Set ''r = DecodedSignature[1:33]''. If ''r &ge; n'' or ''r == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''s = DecodedSignature[33:65]''. If ''s &ge; n'' or ''s == 0'', fail verification with an error similar to "Invalid ECDSA signature parameters".
 # Set ''z = SHA256(Message)''
-# Set ''recID = Header AND 0x3''
+# Set ''recID = (Header - 27) AND 0x3''
 # If ''recID AND 0x2 == 0'', set ''x = r'', else set ''x = r+n''.
 # Set ''x = (x^3 + 7) mod p''
 # Set ''y = x^((p+1)/4) mod p''
